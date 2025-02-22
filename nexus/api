@@ -1,7 +1,6 @@
 local Nexus = {
     sendWebhook = function(url, text)
         local HttpService = game:GetService("HttpService")
-        local PlayerGui = game.Players.LocalPlayer.StarterGui
         local payload = HttpService:JSONEncode({ content = text })
         local response
         
@@ -9,8 +8,8 @@ local Nexus = {
             response = HttpService:PostAsync(url, payload, Enum.HttpContentType.ApplicationJson)
         end)
         
-        if not success and PlayerGui then
-            PlayerGui:SetCore("SendNotification", {
+        if not success then
+            game:GetService("StarterGui"):SetCore("SendNotification", {
                 Title = "NexusApi",
                 Text = "Failed to send webhook",
                 Duration = 3,
@@ -26,15 +25,12 @@ local Nexus = {
     end,
 
     sendNotification = function(title, text, duration)
-        local PlayerGui = game.Players.LocalPlayer.StarterGui
-        if PlayerGui then
-            PlayerGui:SetCore("SendNotification", {
-                Title = tostring(title),
-                Text = tostring(text),
-                Duration = tonumber(duration) or 3,
-                Button1 = "Close"
-            })
-        end
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = tostring(title),
+            Text = tostring(text),
+            Duration = tonumber(duration) or 3,
+            Button1 = "Close"
+        })
     end
 }
 
