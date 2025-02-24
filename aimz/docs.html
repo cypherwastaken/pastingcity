@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aimz - Documentation</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: left;
+            padding: 50px;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 40px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        pre {
+            background: #191919;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', Courier, monospace;
+            color: #ff4c4c;
+        }
+        .btn {
+            display: block;
+            width: fit-content;
+            margin: 20px auto;
+            background: #ff4c4c;
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background 0.3s ease;
+        }
+        .btn:hover {
+            background: #e03a3a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aimz Documentation</h1>
+        <p>To use Aimz, load the script using:</p>
+        <pre><code>local aimz = loadstring(game:HttpGet('https://pastebin.com/raw/pzhQD7PD'))()</code></pre>
+        
+        <h2>Functions</h2>
+        <p><b>Enable or Disable Aimbot:</b></p>
+        <pre><code>aimz.aimbot(true) -- Enable
+aimz.aimbot(false) -- Disable</code></pre>
+        
+        <p><b>Set Aim Part:</b></p>
+        <pre><code>aimz.aimpart("Head") -- Aim at the head
+aimz.aimpart("HumanoidRootPart") -- Aim at the body</code></pre>
+        
+        <p><b>Set Aim Prediction:</b></p>
+        <pre><code>aimz.prediction.x(0.2) -- X axis prediction (0-1)
+aimz.prediction.y(0.1) -- Y axis prediction (0-1)</code></pre>
+        
+        <p><b>Set Camera Shake:</b></p>
+        <pre><code>aimz.shake.x(0.1) -- X axis shake (0-1)
+aimz.shake.y(0.1) -- Y axis shake (0-1)</code></pre>
+        
+        <a href="index.html" class="btn">Back to Home</a>
+    </div>
+</body>
+</html>
