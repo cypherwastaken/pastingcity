@@ -146,6 +146,7 @@ const popupContainer = document.getElementById('popup-container');
 const inputField = document.getElementById('input-field');
 const sendButton = document.getElementById('send-button');
 const messagesContainer = document.querySelector('.messages-container');
+const messagesContainer2 = document.querySelector('.chat-body');
 const converter = new showdown.Converter();
 
 let apiKey = '';
@@ -223,7 +224,7 @@ sendButton.addEventListener('click', async () => {
     messagesContainer.appendChild(messageElement);
     history.push({"role": "Chatbot", "message": generatedText});
 
-    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    messagesContainer2.scrollTop = messagesContainer2.scrollHeight;
 
     localStorage.setItem("chatHistory", JSON.stringify(history))
 });
