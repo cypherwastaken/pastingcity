@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nex Launcher</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+        .launch-btn {
+            display: flex;
+            align-items: center;
+            background-color: #1e88e5;
+            color: white;
+            font-size: 1.2rem;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.3s ease;
+        }
+        .launch-btn:hover {
+            background-color: #1565c0;
+            transform: scale(1.05);
+        }
+        .launch-btn svg {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            fill: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Nex Launcher</h1>
+    <p>Use this launcher to avoid bot checks</p>
+    <button class="launch-btn" onclick="window.location.href='https://typeracer.com/race'">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2H4C2.9 2 2 2.9 2 4V20C2 21.1 2.9 22 4 22H10C11.1 22 12 21.1 12 20V4C12 2.9 11.1 2 10 2ZM10 20H4V4H10V20ZM19 11H16.83L18.71 9.12L17.29 7.71L13 12L17.29 16.29L18.71 14.88L16.83 13H19V11Z"/>
+        </svg>
+        Launch
+    </button>
+</body>
+</html>
