@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexagon Sound Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        
+        header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        header img {
+            width: 250px; /* Medium size rectangular image */
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            padding-right: 40px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-container svg {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .notification {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: red;
+            color: white;
+            padding: 10px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            border-radius: 5px;
+            visibility: hidden;
+            transition: visibility 0.3s, opacity 0.3s ease-in-out;
+        }
+
+        .notification.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="headerlogo.png" alt="Logo">
+</header>
+
+<div class="search-container">
+    <input type="text" id="idInput" placeholder="Enter sound ID">
+    <svg id="searchIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8c1.68 0 3.24-.57 4.5-1.53l5.73 5.73c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41l-5.73-5.73C17.43 13.24 18 11.68 18 10c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"></path></svg>
+</div>
+
+<div class="notification" id="notification">Invalid sound ID</div>
+
+<script>
+    document.getElementById('searchIcon').addEventListener('click', async function () {
+        const id = document.getElementById('idInput').value.trim();
+        if (id) {
+            try {
+                const response = await fetch(`https://hexagon.pw/asset?id=${id}`);
+                
+                if (response.ok) {
+                    const contentType = response.headers.get('Content-Type');
+                    
+                    if (contentType && contentType.includes('audio')) {
+                        const blob = await response.blob();
+                        const url = URL.createObjectURL(blob);
+                        
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `hexagon_${id}.mp3`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    } else {
+                        showNotification();
+                    }
+                } else {
+                    showNotification();
+                }
+            } catch (error) {
+                console.error("Error fetching sound:", error);
+                showNotification();
+            }
+        } else {
+            showNotification();
+        }
+    });
+
+    function showNotification() {
+        const notification = document.getElementById('notification');
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
