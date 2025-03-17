@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Rapscout - Users</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -110,7 +110,7 @@
 <body>
 
 <div class="header">
-    <img src="../../assets/headertext.png" alt="Header Logo">
+    <img src="/rapscout/assets/headertext.png" alt="Header Logo">
     <div class="search-container">
         <input type="text" id="userid" placeholder="User ID">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -163,7 +163,7 @@
         });
 
         // Fetch Roles
-        fetch(`../../api/roles.json`)
+        fetch(`/rapscout/api/roles.json`)
         .then(response => response.json())
         .then(rolesData => {
             if (rolesData.userid && rolesData.userid.length > 0) {
