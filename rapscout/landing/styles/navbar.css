@@ -1,0 +1,38 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e1e2e;
+    padding: 10px 20px;
+}
+
+.logo {
+    height: 40px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-links a, #theme-toggle {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-links a:hover, #theme-toggle:hover {
+    color: #ff8c00;
+}
