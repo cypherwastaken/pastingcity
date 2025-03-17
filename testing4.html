@@ -154,11 +154,10 @@
                 asset: 'user'
             })
         })
-        .then(response => response.json())
+        .then(response => response)
         .then(data => {
             if (data.success) {
-                const avatarUrl = data.data.url;
-                const avatarImage = `<img src="${avatarUrl}" alt="User Avatar">`;
+                const avatarImage = `<img src="${response}" alt="User Avatar">`;
                 document.getElementById('user-avatar').innerHTML = avatarImage;
             }
         });
