@@ -144,7 +144,6 @@
         // Fetch Avatar Thumbnail
         fetch(`https://hexagon.pw/api/avatarthumbnail`, {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -154,10 +153,11 @@
                 asset: 'user'
             })
         })
-        .then(response => response)
+        .then(response => response.json())
         .then(data => {
             if (data.success) {
-                const avatarImage = `<img src="${response}" alt="User Avatar">`;
+                const avatarUrl = data.data.url;
+                const avatarImage = `<img src="${avatarUrl}" alt="User Avatar">`;
                 document.getElementById('user-avatar').innerHTML = avatarImage;
             }
         });
@@ -176,7 +176,6 @@
         });
         fetch(`https://hexagon.pw/api/users/inventory`, {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
