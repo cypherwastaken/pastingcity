@@ -144,6 +144,7 @@
         // Fetch Avatar Thumbnail
         fetch(`https://hexagon.pw/api/avatarthumbnail`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -176,6 +177,7 @@
         });
         fetch(`https://hexagon.pw/api/users/inventory`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -190,7 +192,7 @@
                 let inventoryHtml = '';
                 inventoryData.data.inventory.forEach(item => {
                     if (item.limited === "limitedu" || item.limited === "limited") {
-                        fetch(`https://hexagon.pw/api/catalog/item/${item.assetid}`)
+                        fetch(`https://hexagon.pw/api/catalog/item/${item.assetid}`, {mode: 'no-cors'})
                         .then(response => response.json())
                         .then(itemData => {
                             if (itemData.success) {
