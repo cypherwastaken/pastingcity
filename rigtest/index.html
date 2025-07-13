@@ -41,8 +41,9 @@
     <div id="info">Roblox R6 Character loaded from FBX</div>
     <div id="loading">Loading model...</div>
 
-    <!-- Three.js and FBX loader -->
+    <!-- Required libraries -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.7.4/umd/index.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/FBXLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
     
@@ -96,6 +97,13 @@
                     fbx.position.y = 0;
                     fbx.rotation.y = -0.3; // Slightly turn to the right
                     
+                    // Traverse and log all parts (for debugging)
+                    fbx.traverse((child) => {
+                        if (child.isMesh) {
+                            console.log("Part found:", child.name);
+                        }
+                    });
+                    
                     // Apply noob colors if the model supports it
                     applyNoobColors(fbx);
                     
@@ -104,7 +112,9 @@
                 },
                 (xhr) => {
                     // Loading progress
-                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                    const percentLoaded = (xhr.loaded / xhr.total * 100).toFixed(2);
+                    document.getElementById('loading').textContent = `Loading... ${percentLoaded}%`;
+                    console.log(percentLoaded + '% loaded');
                 },
                 (error) => {
                     // Error handling
@@ -119,14 +129,16 @@
             model.traverse((child) => {
                 if (child.isMesh) {
                     // Apply colors based on body part names (adjust according to your FBX structure)
-                    if (child.name.toLowerCase().includes('head')) {
-                        child.material.color.setHex(0x8bc34a); // Green head
-                    } else if (child.name.toLowerCase().includes('torso')) {
-                        child.material.color.setHex(0x00a2ff); // Blue torso
-                    } else if (child.name.toLowerCase().includes('arm')) {
-                        child.material.color.setHex(0xadd8e6); // Light blue arms
-                    } else if (child.name.toLowerCase().includes('leg')) {
-                        child.material.color.setHex(0x2e8b57); // Dark green legs
+                    const lowerName = child.name.toLowerCase();
+                    
+                    if (lowerName.includes('head')) {
+                        setMaterialColor(child, 0x8bc34a); // Green head
+                    } else if (lowerName.includes('torso') || lowerName.includes('chest') || lowerName.includes('spine')) {
+                        setMaterialColor(child, 0x00a2ff); // Blue torso
+                    } else if (lowerName.includes('arm') || lowerName.includes('hand')) {
+                        setMaterialColor(child, 0xadd8e6); // Light blue arms
+                    } else if (lowerName.includes('leg') || lowerName.includes('foot')) {
+                        setMaterialColor(child, 0x2e8b57); // Dark green legs
                     }
                     
                     // Enable shadows
@@ -134,6 +146,17 @@
                     child.receiveShadow = true;
                 }
             });
+        }
+        
+        // Helper function to handle material color setting
+        function setMaterialColor(mesh, color) {
+            if (Array.isArray(mesh.material)) {
+                mesh.material.forEach(mat => {
+                    if (mat.color) mat.color.setHex(color);
+                });
+            } else if (mesh.material && mesh.material.color) {
+                mesh.material.color.setHex(color);
+            }
         }
         
         // Add orbit controls
